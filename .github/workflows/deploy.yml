@@ -11,15 +11,15 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # Checks out your repository's code
+      uses: actions/checkout@v3  # Check out the latest code from your repository
 
-    - name: Build the project (if applicable)
+    - name: Install dependencies and build the project
       run: |
         npm install  # Installs any dependencies for your project
         npm run build  # Runs the build command to generate the build files
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4  # Uses a pre-built action to deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4  # Deploys to GitHub Pages
       with:
         branch: gh-pages  # Deploy to the 'gh-pages' branch
-        folder: build  # Folder containing the build files (adjust this if your project has a different build folder)
+        folder: build  # Folder containing the build files (adjust if needed)
