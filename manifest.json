@@ -1,0 +1,35 @@
+{
+  "id": "/",
+  "name": "Advanced Calculator",
+  "short_name": "Calculator",
+  "description": "A simple offline calculator PWA.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#2b2a2a",
+  "theme_color": "#ff8c00",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshots/screenshot2.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}
