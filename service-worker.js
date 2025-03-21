@@ -1,8 +1,7 @@
 const CACHE_NAME = "calculator-cache-v1";
-const OFFLINE_URL = "./index.html"; // Fallback page for offline mode
+const OFFLINE_URL = "./index.html"; // Use a relative path for offline access
 
 const assets = [
-  "./",
   "./index.html",
   "./styles.css",
   "./script.js",
@@ -24,17 +23,22 @@ self.addEventListener("install", (event) => {
 
 // Fetch Cached Assets with Offline Fallback
 self.addEventListener("fetch", (event) => {
-  if (event.request.url.startsWith("ws://") || event.request.url.startsWith("wss://")) {
-    return; // Ignore WebSocket requests
-  }
-
+  // Ignore WebSocket requests
+  if (!event.request.url.startsWith("ws://127.0.0.1:5500/index.html/ws") 
+    && !event.request.url.startsWith("wss://")) {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+    caches.match(event.request).then((cacheResponse) => {
+      return cacheResponse || fetch(event.request).catch(() => {
+        // If it's a page request, return the offline page
+        if (event.request.mode === "navigate") {
+          return caches.match(OFFLINE_URL);
+        }
+        return new Response(null, { status: 204 }); // Avoid 503 errors
+      });
     })
   );
+  }
 });
-
 
 // Update Cache when a new service worker is activated
 self.addEventListener("activate", (event) => {
